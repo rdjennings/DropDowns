@@ -51,6 +51,7 @@ myOpt.text = 'Ten';
 myOpt.selected = true;
 test.addOption(myOpt);
 
+/*
 aTest.disable();
 alert('pause');
 aTest.enable();
@@ -61,6 +62,4 @@ myOpt = {};
 myOpt.value = 'WHOOP';
 myOpt.text = 'Whoop';
 aTest.addOption(myOpt);
-
-
-
+*/
