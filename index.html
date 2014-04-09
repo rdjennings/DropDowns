@@ -1,0 +1,44 @@
+<!DOCTYPE >
+<!--[if lt IE 7]>      <html class="no-js oldie ie6"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Drop Down Widget</title>
+		<link rel="stylesheet" type="text/css" href="css/t7DropDown.css"/>
+		<style>
+			.t7DD_select,
+			.t7DD_option {
+				width: 200px;
+			}
+		</style>
+    </head>
+    <body>
+    	<form action="#" method="post">
+	    	<div class="work_area" style="height: 75px; width: 50%; background-color: #eee; border: 1px solid red; padding-top: 100px; position: absolute; bottom: 30px;">
+	    		<select id="first_select" name="test_first_name">
+<!--	    			<option value='1'>One</option>
+	    			<option value='2'>Two</option>
+	    			<option selected value='3'>Three</option> -->
+	    		</select>
+	    		<select id="second_select" name="test_second_name">
+	    			<option value='4'>Four</option>
+	    			<option value='5'>Five</option>
+	    			<option selected>Six</option>
+	    		</select>
+	    		<select id="third_select" name="test_third_name">
+	    			<option value='7'>Seven</option>
+	    			<option value='8'>Eight</option>
+	    			<option>Nine</option>
+	    		</select>
+	    	</div>
+	    	<br />
+	    	<input type="submit" />
+	    	<input type="reset" />
+    	</form>
+    	<script src="js/t7DropDown.js"></script>
+    	<script src="js/main.js"></script>
+    </body>
+</html>
