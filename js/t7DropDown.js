@@ -98,11 +98,15 @@ t7DropDown.prototype.init = function(options) {
 };
 
 t7DropDown.prototype.addOption = function(oItem, isFirst) {
-	var list = null;
+	var list = null,
+		classNames = '';
 	option = document.createElement('div');
 	option.innerHTML = oItem.text || oItem.text;
 	option.setAttribute('value', oItem.value || option.innerHTML);
-	option.className = 't7DD_option';
+	if (oItem.className && oItem.className.length > 0) {
+		classNames = ' ' + oItem.className;
+	}
+	option.className = 't7DD_option' + classNames;
 	if (isFirst) {
 		option.className = option.className + ' selected';
 	}

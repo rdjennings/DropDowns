@@ -51,15 +51,11 @@ myOpt.text = 'Ten';
 myOpt.selected = true;
 test.addOption(myOpt);
 
-/*
-aTest.disable();
-alert('pause');
-aTest.enable();
-alert('pause 2');
-test.purge();
-alert('pause 3');
 myOpt = {};
 myOpt.value = 'WHOOP';
 myOpt.text = 'Whoop';
+myOpt.className = 'whoopClass';
 aTest.addOption(myOpt);
-*/
+
+
+
