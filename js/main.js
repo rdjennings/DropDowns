@@ -27,7 +27,7 @@ var beforeSelect = function(ev) {
 
 var afterSelect = function() {
 //	console.log('after select before "set"', this.getValue());
-	this.selectByValue(2);
+//	this.selectByValue(2);
 //	console.log('after select after "set"', this.getValue());
 };
 

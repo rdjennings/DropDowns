@@ -10,7 +10,8 @@ t7DropDown.prototype.init = function(options) {
 	var optionList = options.select.getElementsByTagName('option'),
 		selectedOption = null,
 		parentForm,
-		holdName = '';
+		holdName = '',
+		selectedOptionIdx = 0;
 	this.cssClass = options.cssClass || '';
 	this.processor = options.processor || function() {return;};
 	this.beforeOpen = options.beforeOpen || function() {return;};
@@ -64,6 +65,7 @@ t7DropDown.prototype.init = function(options) {
 	for (var idx=0, len=optionList.length; idx<len; idx++) {
 		if (optionList[idx].getAttribute('selected') !== null) {
 			selectedOption = optionList[idx];
+			selectedOptionIdx = idx;
 		}
 	}
 	
@@ -90,7 +92,7 @@ t7DropDown.prototype.init = function(options) {
 	}
 	this.resetValue = value;
 	this.select.id = this.id;
-	t7DropDownController.add(this);
+	t7DropDownController.add(this, selectedOptionIdx);
 	options.select.parentNode.removeChild(options.select);
 	this.base = null;
 	this.select.style.display = '';
@@ -117,7 +119,7 @@ t7DropDown.prototype.addOption = function(oItem, isFirst) {
 	if (oItem.selected) {
 		list = this.list.getElementsByTagName('div');
 		for (var idx=0, len=list.length; idx<len; idx++) {
-			t7RemoveClass(list[idx], ' selected');
+			t7RemoveClass(list[idx], 'selected');
 		}
 		t7AddClass(option, 'selected');
 		this.currentTarget = option;
@@ -238,14 +240,15 @@ t7DropDown.prototype.defineController = function() {
 		this.body = document.getElementsByTagName('body')[0];
 	};
 	
-	t7DropDownController.prototype.add = function(dropDownObj) {
+	t7DropDownController.prototype.add = function(dropDownObj, selIdx) {
 		var context = this;
 		var select = dropDownObj.base,
 			options = select.getElementsByTagName('option'),
 			option = null,
 			value = null,
 			test = null,
-			isFirst = true;
+			isFirst = true,
+			oList = null;
 
 		dropDownObj.list = document.createElement('div');
 		dropDownObj.list.style.display = 'none';
@@ -256,6 +259,15 @@ t7DropDown.prototype.defineController = function() {
 		for (idx=0, len=options.length; idx<len; idx++) {
 			dropDownObj.addOption(options[idx], isFirst);
 			isFirst = false;
+		}
+		
+		oList = dropDownObj.list.getElementsByTagName('div');
+		for (idx2=0, len2=oList.length; idx2<len2; idx2++) {
+			if (idx2 !== selIdx) {
+				t7RemoveClass(oList[idx2], 'selected');
+			} else {
+				t7AddClass(oList[idx2], 'selected');
+			}
 		}
 
 		this.objectStack.push(dropDownObj);
@@ -402,7 +414,7 @@ t7DropDown.prototype.defineController = function() {
 	
 	t7DropDownController = new t7DropDownController();
 };
-
+/*
 function t7AddClass(el, newClass) {
 	if (el.className.indexOf(newClass) > -1) {
 		return;
@@ -423,6 +435,24 @@ function t7HasClass(el, testClass) {
 		return true;
 	}
 	return false;
+}
+*/
+// class manipulation from http://www.openjs.com/scripts/dom/class_manipulation.php
+function t7HasClass(ele,cls) {
+    return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+}
+
+function t7AddClass(ele,cls) {
+    if (!this.t7HasClass(ele,cls)) {
+    	ele.className += " "+cls;
+    }
+}
+
+function t7RemoveClass(ele,cls) {
+    if (t7HasClass(ele,cls)) {
+        var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+        ele.className=ele.className.replace(reg,' ');
+    }
 }
 
 function t7SelIsOpen(oSelect) {
