@@ -42,12 +42,12 @@ t7DropDown.prototype.init = function(options) {
 		holdName = this.base.name;
 		if (holdName) {
 			this.select.name = null;
-			this.ghostField = document.createElement('input');
-			this.ghostField.type = 'hidden';
-			this.ghostField.name = holdName;
-			parentForm.appendChild(this.ghostField);
+			this.formField = document.createElement('input');
+			this.formField.type = 'hidden';
+			this.formField.name = holdName;
+			parentForm.appendChild(this.formField);
 		} else {
-			this.ghostField = false;
+			this.formField = false;
 		}
 	}
 	
@@ -85,8 +85,8 @@ t7DropDown.prototype.init = function(options) {
 	if (optionList.length === 0) {
 		t7AddClass(this.select, 'empty');
 	}
-	if (this.ghostField) {
-		this.ghostField.value = value;
+	if (this.formField) {
+		this.formField.value = value;
 	}
 	this.resetValue = value;
 	this.select.id = this.id;
@@ -122,8 +122,8 @@ t7DropDown.prototype.addOption = function(oItem, isFirst) {
 		t7AddClass(option, 'selected');
 		this.currentTarget = option;
 		this.select.innerHTML = oItem.text;
-		if (this.ghostField) {
-			this.ghostField.value = oItem.value;
+		if (this.formField) {
+			this.formField.value = oItem.value;
 		}
 	}
 	t7RemoveClass(this.select, 'empty');
@@ -131,16 +131,16 @@ t7DropDown.prototype.addOption = function(oItem, isFirst) {
 
 t7DropDown.prototype.disable = function() {
 	this.close(false);
-	if (this.ghostField) {
-		this.disabledValue = this.ghostField.getAttribute('value');
-		this.ghostField.removeAttribute('value');
+	if (this.formField) {
+		this.disabledValue = this.formField.getAttribute('value');
+		this.formField.removeAttribute('value');
 	}
 	t7AddClass(this.select, 'disabled');
 };
 
 t7DropDown.prototype.enable = function() {
-	if (this.ghostField) {
-		this.ghostField.setAttribute('value', this.disabledValue);
+	if (this.formField) {
+		this.formField.setAttribute('value', this.disabledValue);
 	}
 	t7RemoveClass(this.select, 'disabled');
 };
@@ -215,8 +215,8 @@ t7DropDown.prototype.selectByValue = function(oValue) {
 	t7AddClass(oList[targetIndex], 'selected');
 	this.select.innerHTML = oList[targetIndex].innerHTML;
 	this.select.setAttribute('value',  oList[targetIndex].getAttribute('value'));
-	if (this.ghostField) {
-		this.ghostField.setAttribute('value', oList[targetIndex].getAttribute('value'));
+	if (this.formField) {
+		this.formField.setAttribute('value', oList[targetIndex].getAttribute('value'));
 	}
 };
 
@@ -227,8 +227,8 @@ t7DropDown.prototype.purge = function() {
 	this.resetValue = null;
 	this.resetText = '';
 	t7AddClass(this.select, 'empty');
-	if (this.ghostField) {
-		this.ghostField.removeAttribute('value');
+	if (this.formField) {
+		this.formField.removeAttribute('value');
 	}
 };
 
@@ -303,8 +303,8 @@ t7DropDown.prototype.defineController = function() {
 								object.afterReset();
 								workEl.setAttribute('value', object.resetValue);
 								workEl.innerHTML = object.resetText;
-								if (object.ghostField) {
-									object.ghostField.value = object.resetValue;
+								if (object.formField) {
+									object.formField.value = object.resetValue;
 								}
 							}
 						}
@@ -393,8 +393,8 @@ t7DropDown.prototype.defineController = function() {
 		object.currentTarget = target;
 		object.select.setAttribute('value', target.getAttribute('value'));
 		object.select.innerHTML = target.innerHTML;
-		if (object.ghostField) {
-			object.ghostField.value = target.getAttribute('value');
+		if (object.formField) {
+			object.formField.value = target.getAttribute('value');
 		}
 		object.processor.call(object);
 		object.afterSelect.call(object, ev);
